@@ -10,6 +10,7 @@ Why do I create this? Just to learn Redux riot.
 ![Image of Screen](image/screen.gif)
 
 I'd like to play. So Every 30 seconds there is appear random emoji.
+
 When you have looked for long time, you can see few emoji....
 
 
