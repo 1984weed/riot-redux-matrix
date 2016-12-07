@@ -24,4 +24,4 @@ start
 ```
 npm start
 ```
-and You can see http://localhost:8000
+and you can see http://localhost:8000
