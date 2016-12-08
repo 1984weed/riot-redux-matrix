@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 6
+sudo: false
+script:
+  - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && bash ./deploy.sh'
+cache:
+  directories:
+    - node_modules
