@@ -54,10 +54,8 @@
             this.opts.store.dispatch(queueRandomText())
         }
         this.handleFontChange = (e) => {
-            const {width} = store.getState()
-            this.opts.store.dispatch(initializeMatrix({
-                fontSize: e.target.value,
-                drops: createInitialDrops(width / e.target.value)
+            this.opts.store.dispatch(initMatrix({
+                fontSize: e.target.value
             }))
         }
         this.pushText = (e)  => {

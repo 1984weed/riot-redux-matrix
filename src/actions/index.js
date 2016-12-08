@@ -13,9 +13,9 @@ const updateDropsAction = createAction(UPDATE_DROPS)
 export const queueNewText = createAction(QUEUE_NEW_CHAR)
 
 export const initMatrix = (payload) =>
-    randomAction((rng, {textArray}) =>
+    randomAction((rng, {textArray, width}) =>
         Object.assign(payload, {
-            drops: createInitialDrops(payload.width / payload.fontSize, textArray, rng)
+            drops: createInitialDrops((payload.width || width) / payload.fontSize, textArray, rng)
         })
     )(initializeMatrixAction)
 
