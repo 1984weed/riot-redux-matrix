@@ -8,7 +8,7 @@
     <canvas id="matrix"></canvas>
 
     <script>
-        import {initializeMatrix, moveDrops, queueRandomText} from '../actions'
+        import {initMatrix, moveDrops, queueRandomText, queueNewText} from '../actions'
         import {createInitialDrops} from '../utils'
 
         this.on('mount', () => {
@@ -18,20 +18,18 @@
             c.height = window.innerHeight - c.offsetTop
             c.width = window.innerWidth
 
-            const columns = c.width / this.opts.fontSize
-
-            this.opts.store.dispatch(initializeMatrix({
+            this.opts.store.dispatch(initMatrix({
                 ctx,
                 height: c.height,
                 width: c.width,
-                drops: createInitialDrops(columns)
+                fontSize: this.opts.fontSize
             }))
 
             setInterval(updateDraw, this.opts.frameRate)
             setInterval(queueStr, this.opts.newTextInterval)
 
         });
-        function draw({ctx, textArray, fontSize, fontColor, height, width, drops}) {
+        const draw = ({ctx, textArray, fontSize, fontColor, height, width, drops}) => {
             ctx.fillStyle = "rgba(0, 0, 0, 0.05)"
             ctx.fillRect(0, 0, width, height)
 
@@ -39,8 +37,7 @@
             ctx.font = fontSize + "px arial"
 
             for (let i = 0; i < drops.length; i++) {
-                const text = textArray[Math.floor(Math.random() * textArray.length)]
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+                ctx.fillText(drops[i].text, i * fontSize, drops[i].pos * fontSize)
             }
         }
 

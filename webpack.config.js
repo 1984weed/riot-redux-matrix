@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack');
 const PORT = process.env.PORT || "8000"
+const dist = 'dist'
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = {
@@ -8,11 +10,11 @@ module.exports = {
         './src/index.js'
     ],
     output: {
-        path: __dirname,
-        filename: 'bundle.js'
+        path: path.join(__dirname, "dist"),
+        filename: 'bundle.[chunkhash].js'
     },
     devServer: {
-        contentBase: "./",
+        contentBase: "./dist",
         noInfo: true,
         inline: true,
         historyApiFallback: true,
@@ -21,7 +23,10 @@ module.exports = {
         devtool: "source-map"
     },
     plugins: [
-        new webpack.ProvidePlugin({riot: 'riot'})
+        new webpack.ProvidePlugin({riot: 'riot'}),
+        new HtmlWebpackPlugin({
+            template: './src/template.html'
+        })
     ],
     module: {
         preLoaders: [
@@ -37,12 +42,6 @@ module.exports = {
                     plugins: ["transform-object-rest-spread"]
                 }
             }
-            // ,
-            // {
-            //   test: /\.tag$/,
-            //   loader: 'tag',
-            //   exclude: /node_modules/
-            // }
         ]
     }
 }

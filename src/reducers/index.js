@@ -3,10 +3,9 @@ import { handleActions } from 'redux-actions';
 const InitialText = '0123456789'
 const initialState = {
     ctx: null,
-    text: '',
     fontSize: 16,
     fontColor: '#0F0',
-    drops: [],
+    drops: [{text: null, pos: 0}],
     height: 0,
     width: 0,
     textArray: InitialText.split('')
@@ -20,7 +19,7 @@ const reducer = handleActions({
         return {...state, drops: action.payload}
     },
     QUEUE_NEW_CHAR: (state, action) => {
-        const newText = action.payload //||
+        const newText = action.payload
         const oldTextArray = state.textArray
         oldTextArray.push(newText)
         return {...state, textArray: oldTextArray.slice(1, oldTextArray.length)}
