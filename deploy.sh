@@ -37,7 +37,7 @@ doCompile
 # Now let's go have some fun with the cloned repo
 cd dist
 git config user.name "Travis CI"
-git config user.email "deploy@noreply"
+git config user.email "yuyuyu1999@gmail.com"
 
 # If there are no changes to the compiled out (e.g. this is a README update) then just bail.
 #if [ -z `git diff --exit-code` ]; then
@@ -50,15 +50,5 @@ git config user.email "deploy@noreply"
 git add .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
-# Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
-ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
-ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
-ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
-ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in deploy_key.enc -out deploy_key -d
-chmod 600 deploy_key
-eval `ssh-agent -s`
-ssh-add deploy_key
+git push --force --quiet "https://${GH_TOKEN}@github.com/1984weed/riot-redux-matrix.git" $TARGET_BRANCH > /dev/null 2>&1
 
-# Now that we're all set up, we can push.
-git push $SSH_REPO $TARGET_BRANCH
